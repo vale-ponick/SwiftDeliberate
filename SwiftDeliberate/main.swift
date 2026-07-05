@@ -7,5 +7,11 @@
 
 import Foundation
 
-print("Hello, World!")
+/// SwiftDeliberate: Интерактивный тренажер.
+/// Код проверяет сам себя через `assert`.
+/// Если допущена ошибка — программа мгновенно упадет при запуске.
+
+// --- Вызов активных тем ---
+TypesCode.run()
+// TypesMiddleCode.run()
 
