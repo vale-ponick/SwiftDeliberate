@@ -24,7 +24,7 @@ print("✅ Проверка пройдена")
 */
 
 // --- Вызов активных тем ---
-TypesCode.run()
-// ArraysCode.run()
+// TypesCode.run()
+ArraysCode.run()
 // TypesMiddleCode.run()
 
