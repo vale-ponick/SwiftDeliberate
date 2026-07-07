@@ -21,10 +21,19 @@ print("📊 Результат: \(result)")
 let isValid = ...
 assert(isValid, "❌ Ошибка: [описание]")
 print("✅ Проверка пройдена")
+ 
+ ЭТО НЕ ПРОСТО КОД
+ 
+ print — показывает путь
+ assert — проверяет, что ты не сбилась с пути
+ Вместе — ты управляешь процессом
+ 
 */
 
 // --- Вызов активных тем ---
 // TypesCode.run()
-ArraysCode.run()
 // TypesMiddleCode.run()
+// ArraysCode.run()
+ArraysMiddleCode.run()
+
 
