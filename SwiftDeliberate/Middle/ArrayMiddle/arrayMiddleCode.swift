@@ -130,7 +130,9 @@ struct ArraysMiddleCode {
         ]
         
         // 3.1 Получить элемент по индексу [1][1]
-        // 3.2 Проверить, что результат == "X"
+        let center = ticTacToe[1][1]
+        print("▶️ Центр игрового поля: \(center)")
+        assert(center == "X", "❌ Ошибка: центр должен быть X")
         
         
         // MARK: - 4️⃣: ArraySlice — опасность и правильное копирование
@@ -140,13 +142,22 @@ struct ArraysMiddleCode {
         hugeArray = []
         
         // 4.1 Проверить, что isolatedArray содержит 5 элементов
+        print("▶️ isolatedArray содержит \(isolatedArray.count) элементов")
+        assert(isolatedArray.count == 5, "❌ Ошибка: срез должен содержать 5 элементов")
         
         
         // MARK: - 5️⃣: removeFirst() vs removeLast()
         var testArray = Array(1...10)
         
         // 5.1 Удалить последний элемент
+        let lastRemoved = testArray.removeLast()
+        print("▶️ Удалён последний элемент: \(lastRemoved)")
+        assert(testArray == [1, 2, 3, 4, 5, 6, 7, 8, 9], "❌ Ошибка: removeLast() сработал неверно")
+
         // 5.2 Удалить первый элемент
+        let firstRemoved = testArray.removeFirst()
+        print("▶️ Удалён первый элемент: \(firstRemoved)")
+        assert(testArray == [2, 3, 4, 5, 6, 7, 8, 9], "❌ Ошибка: removeFirst() сработал неверно")
         
         
         print("✅ Массивы (Middle) пройдены!")
