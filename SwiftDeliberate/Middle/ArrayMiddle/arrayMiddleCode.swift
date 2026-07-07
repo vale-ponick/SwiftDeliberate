@@ -14,24 +14,25 @@ struct ArraysMiddleCode {
         // MARK: - 1️⃣: lazy map + first (оптимизация)
         // 1.1 Обычный map + filter + first
         let names = ["Alex", "John", "Anna", "Maria", "Peter"]
-        let normalRes = names .map { $0.uppercased() }
-            .filter { $0.hasPrefix("A") }
-            .first // Вернет Optional("ALEX")
+        let normalRes = names .map { $0.uppercased() } // преобразует КАЖДЫЙ элемент массива -> заглавные
+            .filter { $0.hasPrefix("A") } // фильтрует массив условие - начинается с буквы А
+            .first // Вернет Optional("ALEX") // вернет первый элемент т.к. его м. НЕ б. => вернет String?
         assert(normalRes == "ALEX", "❌ Ошибка: обычный map")
         
         // 1.1 Обычный map + filter + first
+        // вар. 2 «Пошаговая трассировка кода с выводом состояния»
         print("▶️ Обычный map:")
         let normRes = names
-            .map { name -> String in
-                print("  🔄 map: \(name)")
+            .map { name -> String in // синтаксис замыкания знаком уже, но еще НЕ привычен - надо добавить в рефлексию
+                print("  🔄 map: \(name)") // ГЛАВНОЕ здесь - принтты т.к. они показывают алгоритм действия кода построчно = по командно
                 return name.uppercased()
             }
-            .filter { name in
+            .filter { name in // тот же синтакс замыкания
                 print("  🔍 filter: \(name)")
                 return name.hasPrefix("A")
             }
             .first
-        print("📊 Результат: \(normRes ?? "nil")")
+        print("📊 Результат: \(normRes ?? "nil")") // работа с опц-лом - если нил
         
         // 1.2 lazy.map + filter + first
         let lazyRes = names.lazy
