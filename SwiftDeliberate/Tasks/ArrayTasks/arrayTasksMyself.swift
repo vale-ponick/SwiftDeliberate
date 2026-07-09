@@ -43,5 +43,82 @@ struct ArrayTasksMyself {
         assert((maxNumber == numbers.max()), "❌ Ошибка: алгоритм поиска максимума работает неверно")
         print("✅ Проверка пройдена")
         
+        // MARK: - 3️⃣. Комплексная обработка: Уникальность -> Разворот -> Минимум
+        print("--- Задача 3️⃣: Комплексная обработка ---")
+        
+        // Шаг 1. Очистка от дубликатов
+        let inputNumbers = [1, 2, 1, 2, 3, 3, 3, 4, 5, 6, 7, 7, 12, 21]
+        var uniqueNumbers: [Int] = []
+        for num in inputNumbers {
+            if !uniqueNumbers.contains(num) {
+                uniqueNumbers.append(num)
+            }
+        }
+        
+        // Шаг 2. Разворот массива задом наперёд
+        var uniqueNums = [1, 2, 3, 4, 5, 6, 7, 12, 21]
+        let _: [Int] = []
+        uniqueNums.reverse()
+
+        
+        // Шаг 3  Разворот массива 'задом наперёд' ВРУЧНУЮ
+        var reversedNums: [Int] = []
+        
+        for num in uniqueNumbers {
+            reversedNums.insert(num, at: 0)
+                
+        }
+        
+        // Шаг 3. Поиск минимума ВРУЧНУЮ  - без .min()
+        var minNum = Int.max
+        
+        for num in reversedNums {
+            if num < minNum {
+                minNum = num
+            }
+        }
+        
+        // Вывод результатов
+        print("Уникальные: \(uniqueNumbers)")
+        print("Развернутые: \(reversedNums)")
+        print("Минимум: \(minNum)")
+        
+        // Проверки
+        assert(minNum == inputNumbers.min(), "❌ Ошибка: алгоритм поиска минимума работает неверно")
+        if minNum == inputNumbers.min() {
+            print("🎉 Результат \(minNum) полностью совпадает с системным минимумом")
+        }
+        print("✅ Задача 3️⃣: Все проверки пройдены успешно!")
+        
+        // MARK: - 4️⃣. Найди дубликаты
+        print("--- Задача 4️⃣: Найди дубликаты ---")
+        // var. 1 простой + императивный
+        let input = [1, 1, 1, 3, 3, 3, 5, 5, 7]
+        
+        var searchNums: [Int] = []
+        var dublicateNums: [Int] = []
+        
+        for num in input {
+            if !searchNums.contains(num) { // если НЕ содержит - добавь
+                searchNums.append(num)
+            } else if !dublicateNums.contains(num) {
+                dublicateNums.append(num)
+            }
+        }
+        
+        // вар. 2 функциональный
+        
+        let arrayNumbers = [1, 1, 1, 3, 3, 3, 5, 5, 7]
+         
+        let partitionedNumbers = arrayNumbers.reduce(into: (searchNums: [Int](), dublicateNums: [Int]())) { result, num in
+            if !result.searchNums.contains(num) {
+                    result.searchNums.append(num)
+            } else if !result.dublicateNums.contains(num) {
+                result.dublicateNums.append(num)
+                        }
+                    }
+           print(partitionedNumbers)
+            
+        
     }
 }

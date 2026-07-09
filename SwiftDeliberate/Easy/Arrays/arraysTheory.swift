@@ -27,7 +27,6 @@ import Foundation
   let slice = prices.prefix(3)  // ArraySlice
  ✅ Правильно:
 
- swift
  let topPrices = Array(prices.prefix(3))  // Array
  */
  
