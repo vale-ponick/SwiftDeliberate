@@ -118,7 +118,30 @@ struct ArrayTasksMyself {
                         }
                     }
            print(partitionedNumbers)
-            
+           
         
+        // MARK: - 5️⃣. Проверь, отсортирован ли массив (по возрастанию)
+        print("--- Задача  5️⃣: Проверь, отсортирован ли массив ---")
+        // Логика: массив считается отсортированным, если каждый следующий элемент >= предыдущего.
+        // Если хотя бы один элемент нарушает порядок → false.
+        let nums1 = [1, 2, 3, 4, 5]      // → true
+        let nums2 = [1, 3, 2, 4, 5]      // → false
+        
+        let nums = [1, 2, 3, 4, 5, 6, 4, 5, 7]
+        
+        func isSorted(_ array: [Int]) -> Bool {
+            for num in 0..<array.count - 1 {
+                if array[num] > array[num + 1] {
+                    return false
+                }
+            }
+            return true
+        }
+        print("nums1: \(isSorted(nums1) ? "✅ отсортирован" : "❌ не отсортирован")")
+        print("nums2: \(isSorted(nums2) ? "✅ отсортирован" : "❌ не отсортирован")")
+
+        assert(isSorted(nums1) == true, "❌ Ошибка: массив должен быть отсортирован")
+        assert(isSorted(nums2) == false, "❌ Ошибка: массив не должен быть отсортирован")
+        print("✅ Проверка пройдена")
     }
 }
