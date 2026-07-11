@@ -204,5 +204,27 @@ struct ArrayTasksMyself {
 
         assert(checkMaxNumUnique(in: nums7) == 7, "❌ Ошибка в логике уникальных чисел")
         assert(checkMaxNumWithDuplicates(nums7) == 9, "❌ Ошибка в логике учета дубликатов")
+        
+        
+        // MARK: - 8️⃣. Отфильтровать чётные числа и возвести их в квадрат
+        print("---8️⃣. Отфильтровать чётные числа и возвести их в квадрат.---")
+        
+        func ilterAndSquareEvenNums(in array: [Int]) -> [Int] { // верни optional -> evven numbers may be is absent in array?
+            
+            var result: [Int] = []
+            
+            for num in array {
+                if num % 2 == 0 {
+                    result.append(num * num)
+                }
+            }
+        return result
+        }
+        // Проверка:
+        let withEvens = [1, 2, 3, 4, 5, 6]
+        let withoutEvens = [1, 3, 5, 7]
+        print(ilterAndSquareEvenNums(in: withEvens)) // → [4, 16, 36]
+        print(ilterAndSquareEvenNums(in: withoutEvens)) // []
+        
     }
 }
