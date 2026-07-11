@@ -209,7 +209,8 @@ struct ArrayTasksMyself {
         // MARK: - 8️⃣. Отфильтровать чётные числа и возвести их в квадрат
         print("---8️⃣. Отфильтровать чётные числа и возвести их в квадрат.---")
         
-        func ilterAndSquareEvenNums(in array: [Int]) -> [Int] { // верни optional -> evven numbers may be is absent in array?
+        // Императивный вариант (цикл for-in)
+        func ilterAndSquareEvenNums(in array: [Int]) -> [Int] {
             
             var result: [Int] = []
             
@@ -220,11 +221,21 @@ struct ArrayTasksMyself {
             }
         return result
         }
+        
+        // вар. 2 функциональный 'swift-style' - .filter + .map
+        
+        func filterAndSquareEvenNums(_ array: [Int]) -> [Int] {
+            array
+                .filter { $0 % 2 == 0 }
+                .map { $0 * $0 }
+        }
+        
         // Проверка:
         let withEvens = [1, 2, 3, 4, 5, 6]
         let withoutEvens = [1, 3, 5, 7]
         print(ilterAndSquareEvenNums(in: withEvens)) // → [4, 16, 36]
         print(ilterAndSquareEvenNums(in: withoutEvens)) // []
-        
+        print(filterAndSquareEvenNums(withEvens)) // → [4, 16, 36]
+        print(filterAndSquareEvenNums(withoutEvens)) // []
     }
 }
