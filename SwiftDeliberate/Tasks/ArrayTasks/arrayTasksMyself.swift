@@ -59,14 +59,14 @@ struct ArrayTasksMyself {
         var uniqueNums = [1, 2, 3, 4, 5, 6, 7, 12, 21]
         let _: [Int] = []
         uniqueNums.reverse()
-
+        
         
         // Шаг 3  Разворот массива 'задом наперёд' ВРУЧНУЮ
         var reversedNums: [Int] = []
         
         for num in uniqueNumbers {
             reversedNums.insert(num, at: 0)
-                
+            
         }
         
         // Шаг 3. Поиск минимума ВРУЧНУЮ  - без .min()
@@ -109,16 +109,16 @@ struct ArrayTasksMyself {
         // вар. 2 функциональный
         
         let arrayNumbers = [1, 1, 1, 3, 3, 3, 5, 5, 7]
-         
+        
         let partitionedNumbers = arrayNumbers.reduce(into: (searchNums: [Int](), dublicateNums: [Int]())) { result, num in
             if !result.searchNums.contains(num) {
-                    result.searchNums.append(num)
+                result.searchNums.append(num)
             } else if !result.dublicateNums.contains(num) {
                 result.dublicateNums.append(num)
-                        }
-                    }
-           print(partitionedNumbers)
-           
+            }
+        }
+        print(partitionedNumbers)
+        
         
         // MARK: - 5️⃣. Проверь, отсортирован ли массив (по возрастанию)
         print("--- Задача  5️⃣: Проверь, отсортирован ли массив ---")
@@ -126,8 +126,6 @@ struct ArrayTasksMyself {
         // Если хотя бы один элемент нарушает порядок → false.
         let nums1 = [1, 2, 3, 4, 5]      // → true
         let nums2 = [1, 3, 2, 4, 5]      // → false
-        
-        let nums = [1, 2, 3, 4, 5, 6, 4, 5, 7]
         
         func isSorted(_ array: [Int]) -> Bool {
             for num in 0..<array.count - 1 {
@@ -139,10 +137,72 @@ struct ArrayTasksMyself {
         }
         print("nums1: \(isSorted(nums1) ? "✅ отсортирован" : "❌ не отсортирован")")
         print("nums2: \(isSorted(nums2) ? "✅ отсортирован" : "❌ не отсортирован")")
-
+        
         assert(isSorted(nums1) == true, "❌ Ошибка: массив должен быть отсортирован")
         assert(isSorted(nums2) == false, "❌ Ошибка: массив не должен быть отсортирован")
         print("✅ Проверка пройдена")
+        
+        // MARK: - 6️⃣. Перевернуть массив (без .reversed())
+        print("---🧩 ЗАДАЧА 6️⃣. Перевернуть массив (без .reversed()) ---")
+        /* 📋 ТЗ: Напиши функцию reverseArray(_:). Без reversed(). Верни новый массив (не меняй оригинал). Используй O(n) по времени и O(n) по памяти. */
+        
+        let nums = [1, 2, 3, 4, 5, 6, 7] // → [5, 4, 3, 2, 1]
+        
+        func reverseArray(_ array: [Int]) -> [Int] {
+            var result: [Int] = [] // создай пустой массив = хранилище
+            for i in array {
+                result.insert(i, at: 0)
+            }
+            return result
+        }
+        print(reverseArray(nums)) // [7, 6, 5, 4, 3, 2, 1]
+        assert(reverseArray(nums) == [7, 6, 5, 4, 3, 2, 1], "❌ Ошибка: массив д.б. перевернут")
+        
+        // MARK: - 7️⃣. Найти второй max (без .sorted)
+        print("---7️⃣. Найти второй max (без .sorted). Вариант 1: Дубликаты ИГНОРИРУЮТСЯ---")
+
+        let nums7 = [3, 7, 2, 9, 4, 9, 6]
+
+        // Вариант 1: Дубликаты ИГНОРИРУЮТСЯ (Ищем второй макс среди уникальных) -> Ожидаем 7
+        func checkMaxNumUnique(in array: [Int]) -> Int? {
+            guard array.count >= 2 else { return nil }
+            var maxNum = Int.min
+            var secondMax = Int.min
+            
+            for num in array {
+                if num > maxNum {
+                    secondMax = maxNum
+                    maxNum = num
+                } else if num > secondMax && num < maxNum { // Строго меньше первого макса
+                    secondMax = num
+                }
+            }
+            return secondMax
+        }
+
+        // Вариант 2: Дубликаты УЧИТЫВАЮТСЯ -> Ожидаем 9
+        print("---7️⃣. Найти второй max (без .sorted). Вариант 2: Дубликаты УЧИТЫВАЮТСЯ---")
+        func checkMaxNumWithDuplicates(_ array: [Int]) -> Int? {
+            guard array.count >= 2 else { return nil }
+            var maxNum = Int.min
+            var secondMax = Int.min
+            
+            for num in array {
+                if num > maxNum {
+                    secondMax = maxNum
+                    maxNum = num
+                } else if num > secondMax { // Может быть равен первому максу
+                    secondMax = num
+                }
+            }
+            return secondMax
+        }
+
+        // Проверки:
+        print(checkMaxNumUnique(in: nums7) ?? "nil")         // Выведет: 7
+        print(checkMaxNumWithDuplicates(nums7) ?? "nil")     // Выведет: 9
+
+        assert(checkMaxNumUnique(in: nums7) == 7, "❌ Ошибка в логике уникальных чисел")
+        assert(checkMaxNumWithDuplicates(nums7) == 9, "❌ Ошибка в логике учета дубликатов")
     }
 }
-// 🚕💨 Progress: 5/12
