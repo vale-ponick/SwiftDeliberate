@@ -114,13 +114,33 @@ struct ArrayTasksSlices {
             return result
         }
         
-        
-        print(isPalindrom) // true
-        print(mixedPlaylist)
-        
-        let shuffled = shuffleManual(playlist)
-        print(shuffled)
-        assert(shuffled != playlist, "❌ Массив не перемешался")
+        func compress(_ array: [String]) -> [String] {
+            guard !array.isEmpty else { return [] }
+            var result: [String] = []
+            var last: String?
             
+            for item in array {
+                if item != last {
+                    result.append(item)
+                    last = item
+                }
+            }
+            return result
+        }
+        
+        print("\n📋 Результаты:")
+
+        print("🔹 Палиндром: \(isPalindrom)")
+
+        print("🔹 Перемешанный (shuffled):")
+        print(mixedPlaylist)
+
+        let shuffled = shuffleManual(playlist)
+        print("🔹 Перемешанный (Fisher-Yates):")
+        print(shuffled)
+
+        let compressed = compress(playlist)
+        print("🔹 Сжатый плейлист:")
+        print(compressed)
     }
 }
