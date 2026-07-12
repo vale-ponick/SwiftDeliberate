@@ -72,5 +72,55 @@ struct ArrayTasksSlices {
         print(middleMovies(movies))
         
         // MARK: - 4️⃣. ДОП: БЕЗОПАСНОСТЬ. Если индексы выходят за пределы массива — верни пустой массив. Используй guard или проверку if
+        
+        // MARK: - 5️⃣. ПРАКТИЧЕСКАЯ ЗАДАЧА: «Playlist».
+        print("5️⃣. ПРАКТИЧЕСКАЯ ЗАДАЧА: 'Playlist»'")
+        
+/* Ты — музыкальный редактор. У тебя есть плейлист, и тебе нужно:
+1️⃣ Проверить, является ли плейлист палиндромом
+        — [A, B, C, B, A] — да
+        — [A, B, C, D, E] — нет
+
+2️⃣ Перемешать плейлист (algorithm 'Fisher‑Yates')
+        — Тасование с сохранением оригинального порядка? Нет, перемешать в случайном порядке.
+
+3️⃣ Сжать повторы
+        — [A, A, B, B, B, C] → [A, B, C]
+ */
+ 
+        let playlist = [
+            "ABBA: Dancing Queen",
+            "Boney M: Rasputin",
+            "Iggy Pop: Death Car",
+            "The Beatles: Yesterday",
+            "Iggy Pop: Death Car",
+            "Boney M: Rasputin",
+            "ABBA: Dancing Queen"
+        ]
+        
+        let isPalindrom = playlist == Array(playlist.reversed())
+        let mixedPlaylist = playlist.shuffled()
+        
+        func shuffleManual(_ playlist: [String]) -> [String] {
+            var result = playlist
+            for i in stride(
+                from: result.count - 1,
+                through: 1,
+                by: -1)
+            {
+                let j = Int.random(in: 0...i)
+                result.swapAt(i, j)
+            }
+            return result
+        }
+        
+        
+        print(isPalindrom) // true
+        print(mixedPlaylist)
+        
+        let shuffled = shuffleManual(playlist)
+        print(shuffled)
+        assert(shuffled != playlist, "❌ Массив не перемешался")
+            
     }
 }
