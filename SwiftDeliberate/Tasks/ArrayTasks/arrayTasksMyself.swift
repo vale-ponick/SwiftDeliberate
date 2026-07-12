@@ -237,5 +237,34 @@ struct ArrayTasksMyself {
         print(ilterAndSquareEvenNums(in: withoutEvens)) // []
         print(filterAndSquareEvenNums(withEvens)) // → [4, 16, 36]
         print(filterAndSquareEvenNums(withoutEvens)) // []
+        
+        // MARK: - 9️⃣. Сдвинуть массив на n позиций вправо
+        print("---📋 ТЗ 9️⃣: Сдвинуть массив на K позиций вправо. Не меняй оригинал. Если n > array.count - обработай. Выбор: один проход /  ---")
+        
+        // вар. 1 array + slice
+        func rotateRight(_ array: [Int], n: Int) -> [Int] {
+            guard !array.isEmpty else { return [] } // если массив пуст => не тратим время и память
+            let steps = n % array.count // остаток от деления на n
+            let split = array.count - steps // срез = длина массива - шаг
+            return Array(array[split...] + array[..<split])
+        }
+        
+        // вар. 2 цикл for-in
+        func rotateRight(in array: [Int], n: Int) -> [Int] {
+            guard !array.isEmpty else { return [] }
+            
+            var result = array // копируем массив, оригинал НЕ трогаем - ? массив = тип-значение => копия отдельно
+            let steps = n % array.count
+            
+            for _ in 0..<steps {
+                let last = result.removeLast() // удалили + сохранили
+                result.insert(last, at: 0)
+            }
+            return result
+        }
+
+        let nums9 = [1, 2, 3, 4, 5, 6, 7] // сдвиг на 2 → [4, 5, 1, 2, 3]
+        print(rotateRight(nums9, n: 3)) // [5, 6, 7, 1, 2, 3, 4]
+        print(rotateRight(in: nums9, n: 2)) // [6, 7, 1, 2, 3, 4, 5]
     }
 }
