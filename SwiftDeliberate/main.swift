@@ -35,6 +35,6 @@ print("✅ Проверка пройдена")
 // TypesMiddleCode.run()
 // ArraysCode.run()
 // ArraysMiddleCode.run()
-ArrayTasksMyself.run()
-
+// ArrayTasksMyself.run()
+ArrayTasksSlices.run()
 
