@@ -126,6 +126,7 @@ let centerElement = ticTacToe[1][1] // Результат: "X"
 func demonstrateArraySlice() {
     var hugeArray = Array(1...1_000_000)
     let slice = hugeArray[0...4] // Срез из 5 элементов, но он держит в памяти все 1_000_000!
-    let isolatedArray = Array(slice) // Правильное решение: копируем нужную часть, чтобы удалить огромный hugeArray из памяти
+    let isolatedArray = Array(slice)
+    print("Изолированный массив (память освобождена): \(isolatedArray)") // Правильное решение: копируем нужную часть, чтобы удалить огромный hugeArray из памяти
     hugeArray = []
 } // Теперь миллион элементов успешно удалены, в памяти остались только 5 элементов
