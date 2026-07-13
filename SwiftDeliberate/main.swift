@@ -36,5 +36,5 @@ print("✅ Проверка пройдена")
 // ArraysCode.run()
 // ArraysMiddleCode.run()
 // ArrayTasksMyself.run()
-ArrayTasksSlices.run()
-
+// ArrayTasksSlices.run()
+OptionalsCode.run()
