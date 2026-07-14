@@ -40,3 +40,12 @@ import Foundation
  🧠 Why: `array?.reduce(0, +) ?? 0` safely bypasses computation if the array is 📦 nil,
     returning a clean fallback value without nested `guard let` blocks.
  */
+/*
+ ⚜️ THE GOLDEN RULE
+ ⚓️ Pattern: 'CompactMap Transformation'
+  
+ 💬 "Use compactMap to filter out nil values and transform remaining elements in one go."
+  
+ 🧠 Why: Instead of filtering first and mapping second, `.compactMap { $0?.uppercased() }`
+    accomplishes both tasks in a single ⚡️ O(n) pass, keeping the code clean and optimal.
+ */

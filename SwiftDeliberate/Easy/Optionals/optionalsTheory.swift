@@ -37,3 +37,12 @@ let cleanInts: [Int] = optionals.compactMap { $0 }
 /*💡 Золотое правило разработчика:
  Если внутри замыкания map у вас получается опционал (Type?), но в финальном массиве вы НЕ хотите видеть nil и Optional(...) — ВСЕГДА заменяйте .map на .compactMap.
  */
+/*
+ ⚜️ THE GOLDEN RULE
+ ⚓️ Pattern: 'CompactMap Transformation'
+  
+ 💬 "Use compactMap to filter out nil values and transform remaining elements in one go."
+  
+ 🧠 Why: Instead of filtering first and mapping second, `.compactMap { $0?.uppercased() }`
+    accomplishes both tasks in a single ⚡️ O(n) pass, keeping the code clean and optimal.
+ */
