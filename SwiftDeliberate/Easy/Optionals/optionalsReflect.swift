@@ -49,3 +49,22 @@ import Foundation
  🧠 Why: Instead of filtering first and mapping second, `.compactMap { $0?.uppercased() }`
     accomplishes both tasks in a single ⚡️ O(n) pass, keeping the code clean and optimal.
  */
+/*
+ ⚜️ THE GOLDEN RULE
+ ⚓️ Pattern: 'Dual Optional Binding'
+  
+ 💬 "Unwrap multiple optionals sequentially within a single guard let block, then use ONLY the safe variables."
+  
+ 🧠 Why: Binding variables via `let safeName = name` removes the 📦 Optional wrapper.
+    Referencing the original `name` afterwards re-introduces `Optional(...)` into your strings.
+ */
+/*
+ ⚜️ THE GOLDEN RULE
+ ⚓️ Pattern: 'Guard vs If-Let Decision'
+  
+ 💬 "Use `guard let` to exit early when data is missing. Use `if let` when you need to execute different logic for both cases."
+  
+ 🧠 Why: `guard let` keeps the "happy path" of your code flat and readable
+    by handling errors immediately at the top.
+    However, for simple fallback values, an inline `??` operator is often the cleanest choice.
+ */
