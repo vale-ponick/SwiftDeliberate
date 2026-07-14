@@ -31,4 +31,12 @@ import Foundation
   🧠 Why: Whenever a transform results in `Type?`, but the final array
      must be ⚡️ flat and `nil`-free, immediately choose `.compactMap`.
   */
- 
+/*
+ ⚜️ THE GOLDEN RULE
+ ⚓️ Pattern: 'Optional Chain Reduction'
+  
+ 💬 "Combine optional chaining with nil-coalescing to handle empty or nil collections in a single line."
+  
+ 🧠 Why: `array?.reduce(0, +) ?? 0` safely bypasses computation if the array is 📦 nil,
+    returning a clean fallback value without nested `guard let` blocks.
+ */

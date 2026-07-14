@@ -40,5 +40,17 @@ struct OptionalsCode {
         }
         let rslt = filterString(in: mixed)
         print(rslt) // ["Swift", "Optional", "Practice"]
+
+// MARK: - Задача 3: Nil‑coalescing в действии
+print("ТЗ: Дан опциональный массив чисел. Если он nil — верни пустой массив. Если есть — верни сумму элементов.")
+        
+        let optionalNumbers: [Int]? = [1, 2, 3, 4, 5]
+        
+        func checkOnOptional(_ array: [Int]?) -> Int {
+            return array?.reduce(0, +) ?? 0
+        }
+        print(checkOnOptional(optionalNumbers)) // 15
+        print(checkOnOptional(nil))             // 0
+
     }
 }
