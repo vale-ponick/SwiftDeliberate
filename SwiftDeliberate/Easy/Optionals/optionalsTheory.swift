@@ -96,7 +96,7 @@ func exampleForceUnwrap(user: [String: String]) {
 
 // 💻 Примеры compactMap:
 
-let mixed: [Any] = ["Swift", 42, nil, "Practice"]
+let mixed: [Any] = ["Swift", 42, "Practice"]
 let strings = mixed.compactMap { $0 as? String }
 // ["Swift", "Practice"]
 
