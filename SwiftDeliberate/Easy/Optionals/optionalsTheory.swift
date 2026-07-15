@@ -6,43 +6,119 @@
 //
 
 import Foundation
-/* 📝 Шпаргалка: compactMap в Swift🎯
-Главная задача: Одновременно трансформировать элементы коллекции и auto удалять nil (очищать массив).
-    На выходе -> плоский массив без опционалов.
- ⏳ История:
-    Появился: Swift 4.1 (март 2018 г.) в рамках предложения SE-0187.Автор: Max Howell (создатель Homebrew).
- Зачем: Заменил перегруженный flatMap в задачах очистки от nil, чтобы вернуть методам их истинный математический смысл. Имя вдохновлено методом .compact из языка Ruby.
- ⚙️ Как работает под капотом
-    (Алгоритм)Сложность: O(n) — линейное время. Выполняет ровно один проход по коллекции.
-    Суть:
-    Создает пустой массив, в цикле for-in применяет замыкание к каждому элементу и через if let добавляет в результат только те значения, которые не равны nil.
+/*
+ 📐🚕💨 ТЕОРИЯ: Опционалы (Easy)
  
- 💻 Шорт-код:
+ 🎯 Главная задача:
+ Опционал — это тип, который может содержать значение или его отсутствие (`nil`).
+ Используется для типобезопасной работы с отсутствующими данными.
  
- 1. Фильтрация + Приведение типов в гетерогенном массиве */
-let mixed: [Any] = ["Swift", 42, "Optional", true, "Practice"]
-let strings: [String] = mixed.compactMap { $0 as? String }
-// ["Swift", "Optional", "Practice"]
+ 📖 История:
+ Появился в Swift 1.0 (2014). Разработан командой Apple под руководством Криса Латтнера.
+ Идея: заменить `null` из других языков на типобезопасную модель.
+ 
+ ⚙️ Как работает под капотом:
+ Опционал — это перечисление (enum) с двумя кейсами:
+ 
+ enum Optional<Wrapped> {
+     case none          // nil
+     case some(Wrapped) // значение
+ }
+ 
+ 🔹 На пальцах (доступно):
+ 
+ Представь, что у тебя есть коробка.
+ - В ней может лежать вещь (значение).
+ - Или она может быть пустой (nil).
+ - Ты не можешь взять вещь, не проверив, есть ли она там.
+ - Swift заставляет тебя проверить коробку, прежде чем достать содержимое.
+ 
+ В Swift:
+ var name: String? = "Vale"  // коробка с именем
+ name = nil                  // коробка пуста
+ 
+ 🔹 Инженерно (точно):
+ 
+ - Опционал — это enum `Optional<Wrapped>`.
+ - `.none` — состояние `nil`.
+ - `.some(Wrapped)` — состояние со значением.
+ - Это value type, живёт в стеке, но может ссылаться на данные в куче.
+ 
+ 🔹 Инструменты разворачивания:
+ */
 
-// 2. Безопасный парсинг строк в числа
-let stringNumbers = ["10", "двадцать", "30", "40.5"]
-let ints: [Int] = stringNumbers.compactMap { Int($0) }
+// 🛡️ 1. guard let — ранний выход при nil
+func exampleGuardLet(user: [String: String]) {
+    guard let name = user["name"] else {
+        return
+    }
+    print(name)  // name доступен дальше
+}
+
+// 🔍 2. if let — проверка внутри блока
+func exampleIfLet(user: [String: String]) {
+    if let age = user["age"] {
+        print(age)  // age доступен только здесь
+    }
+}
+
+// 🔄 3. ?? — значение по умолчанию
+func exampleNilCoalescing(user: [String: String]) {
+    let city = user["city"] ?? "Unknown"
+    print(city)
+}
+
+// ⚠️ 4. ! — принудительное разворачивание (краш при nil)
+func exampleForceUnwrap(user: [String: String]) {
+    let name = user["name"]!  // ТОЛЬКО если уверена на 100%
+    print(name)
+}
+
+/*
+ 🧠 GOLDEN RULE:
+ - `guard let` — разворачивает и оставляет значение в текущей области (current scope).
+ - `if let` — разворачивает и создаёт новую область (new scope).
+ - `??` — не разворачивает, а подменяет `nil` на значение по умолчанию.
+ - `!` — разворачивает насильно. Не используй, если не уверена на 100%.
+ 
+ 🔹 compactMap — частный случай работы с опционалами
+ 
+ `compactMap` одновременно:
+ - фильтрует `nil`
+ - преобразует элементы
+ - возвращает массив без опционалов
+ 
+ 📌 Когда использовать:
+ - Вместо `filter { $0 != nil } + map { $0! }`
+ - Для парсинга строк в числа
+ - Для приведения типов в гетерогенных массивах
+ */
+
+// 💻 Примеры compactMap:
+
+let mixed: [Any] = ["Swift", 42, nil, "Practice"]
+let strings = mixed.compactMap { $0 as? String }
+// ["Swift", "Practice"]
+
+let numbers = ["10", "abc", "30"]
+let ints = numbers.compactMap { Int($0) }
 // [10, 30]
 
-// 3. Удаление явных опционалов из массива
-let optionals: [Int?] = [1, nil, 3, nil, 5]
-let cleanInts: [Int] = optionals.compactMap { $0 }
-// [1, 3, 5]
+let optionalArray: [Int?] = [1, nil, 3]
+let clean = optionalArray.compactMap { $0 }
+// [1, 3]
 
-/*💡 Золотое правило разработчика:
- Если внутри замыкания map у вас получается опционал (Type?), но в финальном массиве вы НЕ хотите видеть nil и Optional(...) — ВСЕГДА заменяйте .map на .compactMap.
- */
 /*
- ⚜️ THE GOLDEN RULE
- ⚓️ Pattern: 'CompactMap Transformation'
-  
- 💬 "Use compactMap to filter out nil values and transform remaining elements in one go."
-  
- 🧠 Why: Instead of filtering first and mapping second, `.compactMap { $0?.uppercased() }`
-    accomplishes both tasks in a single ⚡️ O(n) pass, keeping the code clean and optimal.
+ 🧠 GOLDEN RULE для compactMap:
+ Если внутри замыкания `map` получается опционал (`Type?`),
+ а в финальном массиве ты не хочешь видеть `nil` — используй `.compactMap`.
+ 
+ 📌 Когда использовать compactMap:
+ - Для фильтрации `nil` в массиве
+ - Для одновременного преобразования и очистки
+ - Вместо цепочки `filter + map`
+ 
+ 📌 Когда НЕ использовать:
+ - Если `nil` нужен как часть данных
+ - Если преобразование не может вернуть `nil`
  */
