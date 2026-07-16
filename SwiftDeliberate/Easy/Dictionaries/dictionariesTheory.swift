@@ -13,8 +13,8 @@ import Foundation
 let scores = ["Ann": 85, "Joe": 92, "Jane": 78]
 let danny = ["Danny": 88]
 
-func getAverage(in scores: [String: Int]) -> Double {
-    var newScores = scores.merging(danny, uniquingKeysWith: { current, new in new })
-    let average = Double(newScores.values.reduce(0, +)) / Double(newScores.values.count)
-    return average
+func getAverage(in scores: [String: Int], adding newEntry: [String: Int]) -> Double {
+    let updated = scores.merging(newEntry, uniquingKeysWith: { $1 })
+    return Double(updated.values.reduce(0, +)) / Double(updated.values.count)
 }
+// print(getAverage(in: scores, adding: danny))
