@@ -38,7 +38,7 @@ import Foundation
     Это не магия, а типобезопасный контейнер.
 
 
- 📌 ЗОЛОТЫЕ ПРАВИЛА (англ. формулировки):
+ 📌 ⚜️ THE GOLDEN RULES (англ. формулировки):
 
  ⚜️ "If .map yields an optional, drop .map and go with .compactMap."
     → Если внутри `map` получается опционал, а `nil` не нужен — используй `.compactMap`.
@@ -51,6 +51,14 @@ import Foundation
 
  ⚜️ "Combine optional chaining with nil-coalescing to handle empty collections in one line."
     → `array?.reduce(0, +) ?? 0` — одна строка вместо цепочки проверок.
+
+  ⚜️ Pattern: 'Single-Pass CompactMap'
+   
+  💬 "Instead of chaining `.compactMap { $0 }.map { ... }`, combine them into a single `.compactMap` call."
+   
+  🧠 Why: Chaining two higher-order functions forces Swift to loop through the array twice.
+     Combining them via `$0.map { $0 * 2 }` inside a single `compactMap` cuts execution time ⚡️ in half (O(n) efficiency).
+
 
 
  🎯 ИТОГ ПО ОПЦИОНАЛАМ:

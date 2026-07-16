@@ -7,6 +7,12 @@
 
 import Foundation
 
+extension Int {
+    func square() -> Int {
+        return self * self
+    }
+}
+
 struct OptionalsCode {
     static func run() {
         print("▶️ Запуск: Опционалы (Easy)")
@@ -177,5 +183,37 @@ print("ТЗ: Дан опциональный массив чисел. Если �
         print(formatUserVar2(name: "Vale.ponick", age: "59")) // Name: Vale.ponick, age: 59
         print(formatUserVar2(name: "", age: "")) // Data is incomlete
         print(formatUserVar2(name: "Vale.ponick?", age: "abc")) // Data is incomlete
+        
+        // MARK: - 🧩 ЗАДАЧА 2: compactMap
+        
+        print("Дан массив опциональных чисел. Удали все nil, оставшиеся числа умножь на 2 и верни массив.")
+        
+        // вар. 1 .compactMap + .map => new array auto!
+        func deleteNil(_ array: [Int?]) -> [Int] {
+            array.compactMap { $0.map { $0 * 2 } }
+        }
+        
+        let optionalNums: [Int?] = [1, nil, 3, nil, 5, 6, 7, nil, 12, 21]
+        print(deleteNil(optionalNums)) // [2, 6, 10, 12, 14, 24, 42]
+       
+        // var. 2 with extension и возведи в квадрат
+        
+        func deleteNil2(_ array: [Int?]) -> [Int] {
+            array.compactMap { $0 }.map { $0.square() }
+        }
+        print(deleteNil2(optionalNums)) // [1, 9, 25, 36, 49, 144, 441]
+        
+        // MARK: 🧩 ЗАДАЧА 3: ?? + опциональная цепочка
+        
+        print("Дан опциональный словарь. Извлеки значение по ключу 'city'. Если ключа нет или словарь nil — верни 'Unknown'.")
+
+        let vale: [String: String]? = ["name": "Vale.ponick"] // → "Unknown"
+        let valeWithCity: [String: String]? = ["name": "Vale.ponick", "city": "Krasnoyarsk"]
+        
+        func checkCity(_ dict: [String: String]?) -> String {
+            return dict?["city"]?.uppercased() ?? "Unknown"
+        }
+        print(checkCity(vale)) // unknown
+        print(checkCity(valeWithCity)) // KRASNOYARSK
     }
 }
