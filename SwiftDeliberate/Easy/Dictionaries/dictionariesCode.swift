@@ -61,6 +61,13 @@ struct DictionariesCode {
         let intNums = [10, 20, 30, 40, 50]
         let newArray = intNums.filter { $0 > 25 }
         print(newArray) // [30, 40, 50]
+        
+        // Задача 4.
+        print("Дан массив. Используя map, создай массив строк, где каждое число превращается в 'Number: X'.")
+        let numbers = [1, 2, 3, 4, 5]
+        let numString = numbers.map { "Number: \($0)" }
+
+        print(numString) // ["Number: 1", "Number: 2", "Number: 3", "Number: 4", "Number: 5"]
     }
 }
         
