@@ -181,8 +181,103 @@ struct ArrayTasksSlices {
         assert(compress2(array) == ["a", "b", "c", "b", "a"], "❌ Ошибка: compress2")
         assert(compress3(array) == ["a", "b", "c", "b", "a"], "❌ Ошибка: compress3")
 
-        print("✅ compress — все проверки пройдены")
+        // MARK: - 6️⃣: Сумма чисел, которые встречаются frequency/n раз
+                print("\n6️⃣: Сумма чисел, которые встречаются frequency/n раз")
+                
+                // 🧩 ЗАДАЧА 1️⃣: Сумма чисел, которые встречаются frequency/n раз
+                
+                func sumOfNumbers(withFrequency frequency: Int, in array: [Int]) -> Int {
+                    var counts: [Int: Int] = [:]
+                    
+                    for num in array {
+                        counts[num, default: 0] += 1
+                    }
+                    return counts
+                        .filter { $0.value == frequency }
+                        .map {$0.key }
+                        .reduce(0, +)
+                }
+                
+                print(sumOfNumbers(withFrequency: 2, in: [1, 2, 3, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 7]))  // 6
+                print(sumOfNumbers(withFrequency: 3, in: [1, 2, 3, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 7])) // 9
+                print(sumOfNumbers(withFrequency: 4, in: [1, 2, 3, 1, 2, 3, 4, 4, 4, 5, 5, 5, 6, 7])) // 0
+                
+                // MARK: - 7️⃣: Найти кол-во чисел, которые встречаются нечетное кол-во раз
+                print("\n7️⃣: Найти кол-во чисел, которые встречаются нечетное кол-во раз")
+                
+                // 🧩 ЗАДАЧА 1️⃣: Найти кол-во чисел, которые встречаются нечетное кол-во раз
+                
+                func countOddFrequency(_ nums: [Int]) -> Int {
+                    var counts: [Int: Int] = [:]
+                    
+                    for num in nums {
+                        counts[num, default: 0] += 1
+                    }
+                    return counts
+                        .filter { $0.value % 2 != 0 }
+                        .count
+                }
+                
+                print(countOddFrequency([1,1,1])) // 1
+                print(countOddFrequency([1, 1, 1, 3, 3, 3])) // 2
+                print(countOddFrequency([3, 3, 1, 1, 2, 2, 5, 5, 7, 7])) // 0
+                print(countOddFrequency([])) // 0
+                
+                // MARK: - 8️⃣: Есть ли в массиве число, которое встречается ровно n раз
+                print("\n8️⃣: Есть ли в массиве число, которое встречается ровно n раз")
+                
+                // 🧩 ЗАДАЧА 1️⃣: Есть ли в массиве число, которые встречается ровно n раз
+                
+                func hasNumber(withExactFrequency n: Int, in nums: [Int]) -> Bool {
+                    var counts: [Int: Int] = [:]
+                    
+                    for num in nums {
+                        counts[num, default: 0] += 1
+                    }
+                    
+                    return counts.contains { $0.value == n }
+                }
+                
+                print(hasNumber(withExactFrequency: 3, in: [1, 1, 1, 2, 2, 5])) // true
+                print(hasNumber(withExactFrequency: 2, in: [1, 1, 1, 2, 2, 5])) // true
+                print(hasNumber(withExactFrequency: 5, in: [1, 1, 1, 2, 2, 5])) // false
+                print(hasNumber(withExactFrequency: 0, in: [])) // false
+                
+                // MARK: - 9️⃣: Найти все числа, которые встречаются = n раз, и верни их в виде массива.
+                print("\n9️⃣: Найти все числа, которые встречаются = n раз, и верни их в виде массива.")
+                
+                // 🧩 ЗАДАЧА 6 Найти все числа, которые встречаются = n раз, и верни их в виде массива.
+                // вар. 1 императивный стиль: «Я говорю программе, КАК делать шаг за шагом»
+                
+                func numbers(withExactFrequency n: Int, in nums: [Int]) -> [Int] {
+                    var counts: [Int: Int] = [:]
+                    
+                    for num in nums {
+                        counts[num, default: 0] += 1
+                    }
+                    
+                    var newNums: [Int] = []
+                    let number = counts
+                        .filter { $0.value == n }
+                        .map { $0.key}
+                    
+                    newNums += number
+                    return newNums
+                }
+                
+                print(numbers(withExactFrequency: 2, in: [7, 7, 7, 6, 6, 5, 5] )) // [6, 5]
+                
+                // вар. 2 функциональный стиль: «Я говорю программе, ЧТО я хочу получить»
+                
+                func nums(withExactFrequency n: Int, in nums: [Int]) -> [Int] {
+                    Dictionary(grouping: nums, by: { $0 })
+                        .filter { $0.value.count == n }
+                        .map { $0.key }
+                }
+                
+                print(nums(withExactFrequency: 2, in: [7, 7, 7, 6, 6, 5, 5] )) // [6, 5]
+        
         print("\n✅ Все задачи по срезам и плейлисту пройдены!")
-    }    
+    }
 }
 

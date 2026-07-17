@@ -121,4 +121,46 @@ let clean = optionalArray.compactMap { $0 }
  📌 Когда НЕ использовать:
  - Если `nil` нужен как часть данных
  - Если преобразование не может вернуть `nil`
- */
+
+ _____
+ 
+  📚 ШПАРГАЛКА ПО ОПЦИОНАЛАМ
+  
+  1️⃣ Объявление:
+     var name: String? = "Vale"
+     var age: Int? = nil
+  
+  2️⃣ Разворачивание:
+     guard let name = name else { return }  // ранний выход
+     if let age = age { ... }               // внутри блока
+     let city = city ?? "Unknown"           // значение по умолчанию
+     let value = optional!                  // ТОЛЬКО если уверена!
+  
+  3️⃣ Работа с коллекциями:
+     array.compactMap { $0 as? String }     // фильтр + приведение
+     array.compactMap { $0 }                // убрать nil
+     array?.reduce(0, +) ?? 0               // опциональная цепочка + nil‑coalescing
+  
+  4️⃣ Проверка на nil:
+     if name != nil { ... }                 // редко, лучше использовать разворачивание
+  
+  5️⃣ Сложность:
+     guard let — O(1)
+     if let — O(1)
+     ?? — O(1)
+     compactMap — O(n)
+ 
+ 🏆 THE GOLDEN RULE (для опционалов)
+ "Optionals are not scary — they are just containers. Choose the right tool:
+ guard let for early exit,
+ if let for branching,
+ ?? for defaults,
+ compactMap for collections."
+ 
+ Опционалы не страшны — это просто контейнеры. Выбирай правильный инструмент:
+ guard let для раннего выхода,
+ if let для ветвления,
+ ?? для значений по умолчанию,
+ compactMap для коллекций.
+  */
+ 

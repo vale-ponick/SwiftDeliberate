@@ -57,7 +57,6 @@ struct ArrayTasksMyself {
         
         // Шаг 2. Разворот массива задом наперёд
         var uniqueNums = [1, 2, 3, 4, 5, 6, 7, 12, 21]
-        let _: [Int] = []
         uniqueNums.reverse()
         
         
@@ -210,7 +209,7 @@ struct ArrayTasksMyself {
         print("---8️⃣. Отфильтровать чётные числа и возвести их в квадрат.---")
         
         // Императивный вариант (цикл for-in)
-        func ilterAndSquareEvenNums(in array: [Int]) -> [Int] {
+        func filterAndSquareEvenNums(in array: [Int]) -> [Int] {
             
             var result: [Int] = []
             
@@ -233,8 +232,8 @@ struct ArrayTasksMyself {
         // Проверка:
         let withEvens = [1, 2, 3, 4, 5, 6]
         let withoutEvens = [1, 3, 5, 7]
-        print(ilterAndSquareEvenNums(in: withEvens)) // → [4, 16, 36]
-        print(ilterAndSquareEvenNums(in: withoutEvens)) // []
+        print(filterAndSquareEvenNums(in: withEvens)) // → [4, 16, 36]
+        print(filterAndSquareEvenNums(in: withoutEvens)) // []
         print(filterAndSquareEvenNums(withEvens)) // → [4, 16, 36]
         print(filterAndSquareEvenNums(withoutEvens)) // []
         
@@ -266,5 +265,136 @@ struct ArrayTasksMyself {
         let nums9 = [1, 2, 3, 4, 5, 6, 7] // сдвиг на 2 → [4, 5, 1, 2, 3]
         print(rotateRight(nums9, n: 3)) // [5, 6, 7, 1, 2, 3, 4]
         print(rotateRight(in: nums9, n: 2)) // [6, 7, 1, 2, 3, 4, 5]
+        
+        // MARK: - 🔟: Найти второе по величине уникальное число в массиве.
+                print("\n🔟: Второе по величине уникальное число")
+                
+
+                // MARK: - Подход "Easy" (Через Set и сортировку)
+                // Время: O(N log N) из-за сортировки | Память: O(N) для создания Set
+                func secondLargestMid(_ array: [Int]) -> Int? {
+                    var largest: Int? = nil
+                    var second: Int? = nil
+                    
+                    for num in array {
+                        if num == largest { continue }                // 🚫 Игнорируем двойников
+                        if num > (largest ?? Int.min) {              // 📈 Новый рекорд?
+                            second = largest                         // Старый рекорд → 2 место
+                            largest = num                            // 🥇 Новый 1 место
+                        } else if num > (second ?? Int.min) {        // 📈 Между 1 и 2?
+                            second = num                             // 🥈 Новое 2 место
+                        }
+                    }
+                    return second
+                }
+                
+                print(secondLargestMid([3, 7, 2, 9, 4, 9, 6]) ?? 0) // 7
+                
+                // MARK: - 1️⃣1️⃣: Безопасный парсинг строки с числами.
+                print("\n1️⃣1️⃣: Безопасный парсинг строки с числами.")
+  
+                    
+                enum ParseError: Error {
+                    case emptyInput
+                    case invalidToken(String)
+                }
+                    
+                // MARK: - Парсер (Императивный подход через цикл)
+                func parseNumsStrict(_ string: String, separator: Character = ",") throws -> [Int] {
+                    let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
+                    guard !trimmed.isEmpty else { throw ParseError.emptyInput }
+                        
+                    let components = trimmed.split(separator: separator)
+                    var result: [Int] = []
+                        
+                    for comp in components {
+                        let token = comp.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if token.isEmpty { continue }
+                            
+                        guard let num = Int(token) else { throw ParseError.invalidToken(token) }
+                        result.append(num)
+                    }
+                    return result
+                }
+                    
+                // MARK: - Парсер (Функциональный подход через функциональные методы)
+                func parseNumsElegant(_ string: String, separator: Character = ",") throws -> [Int] {
+                    let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
+                    guard !trimmed.isEmpty else { throw ParseError.emptyInput }
+                        
+                    return try trimmed
+                        .split(separator: separator)
+                        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                        .filter { !$0.isEmpty }
+                        .map { token in
+                            guard let num = Int(token) else { throw ParseError.invalidToken(token) }
+                            return num
+                        }
+                }
+                
+                do {
+                    let parsed = try parseNumsElegant("3, 7, 2, 9, 4, 9, 6")
+                    print("Распарсенный массив: \(parsed)")
+                } catch {
+                    print("Ошибка: \(error)")
+                }
+                
+                // MARK: - 1️⃣2️⃣: Сумма уникальных чисел (3 варианта)
+                print("\n1️⃣2️⃣: Сумма уникальных чисел")
+                
+
+                func sumOfUnique(in nums: [Int]) -> Int {
+                    var counts: [Int: Int] = [:]          // 1️⃣ словарь для подсчёта
+                    
+                    for num in nums {                     // 2️⃣ считаем частоту каждого числа
+                        counts[num, default: 0] += 1      // default: 0 — если ключа нет, подставляем 0 - иначе складываем
+                    }
+                    
+                    return counts                         // 3️⃣ оставляем только те, у кого частота == 1
+                        .filter { $0.value == 1 }         //    берём ключи (числа)
+                        .map { $0.key }                   //    суммируем
+                        .reduce(0, +)
+                }
+
+                //  Set «на лету» - самый быстрый
+                func sumOfUnique(nums: [Int]) -> Int {
+                    var uniques = Set<Int>()              // 1️⃣ числа, которые встретились 1 раз
+                    var duplicates = Set<Int>()           // 2️⃣ числа, которые встретились >1 раза
+                    var totalSum = 0                      // 3️⃣ текущая сумма уникальных чисел
+                    
+                    for num in nums {
+                        if duplicates.contains(num) {     // если уже в дубликатах — пропускаем
+                            continue
+                        }
+                        
+                        if uniques.contains(num) {        // если уже есть в уникальных — второе появление
+                            uniques.remove(num)           // убираем из уникальных
+                            duplicates.insert(num)        // добавляем в дубликаты
+                            totalSum -= num               // вычитаем из суммы
+                        } else {
+                            uniques.insert(num)           // первое появление — добавляем
+                            totalSum += num               // прибавляем к сумме
+                        }
+                    }
+                    return totalSum
+                }
+
+                //  Set + subtracting - элегантный Swift-стиль, использует продвинутый .insert().inserted.
+                func sumOfUniqueShort(_ nums: [Int]) -> Int {
+                    var uniques = Set<Int>()
+                    var duplicates = Set<Int>()
+                    
+                    for num in nums { // insert() возвращает кортеж (inserted: Bool, memberAfterInsert: Element)
+                        if !uniques.insert(num).inserted { // inserted == false означает, что элемент уже был в множестве
+                            duplicates.insert(num)
+                        }
+                    }
+                    return uniques.subtracting(duplicates).reduce(0, +)     // вычитает одно множество из другого
+                }
+
+                let numsForTest = [1, 2, 3, 1, 2, 3, 4, 5, 6, 7]
+                print(sumOfUnique(in: numsForTest)) // 22
+                print(sumOfUnique(nums: numsForTest)) // 22
+                print(sumOfUniqueShort(numsForTest)) // 22
     }
 }
