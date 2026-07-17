@@ -22,4 +22,7 @@ func getAverage(in scores: [String: Int], adding newEntry: [String: Int]) -> Dou
 /*
  🏆 THE GOLDEN RULE (задача 5)
  Для подсчёта частоты элементов в больших массивах используй forEach с default:, для маленьких — элегантный Dictionary(grouping:).
+ 
+ 🏆 THE GOLDEN RULE (задача 6)
+ sorted(by:) не изменяет исходный массив, а возвращает новый. Используй trailing closure для читаемого кода.
  */
