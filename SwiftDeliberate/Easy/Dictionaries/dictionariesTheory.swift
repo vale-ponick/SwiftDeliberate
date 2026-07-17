@@ -18,3 +18,8 @@ func getAverage(in scores: [String: Int], adding newEntry: [String: Int]) -> Dou
     return Double(updated.values.reduce(0, +)) / Double(updated.values.count)
 }
 // print(getAverage(in: scores, adding: danny))
+
+/*
+ 🏆 THE GOLDEN RULE (задача 5)
+ Для подсчёта частоты элементов в больших массивах используй forEach с default:, для маленьких — элегантный Dictionary(grouping:).
+ */
