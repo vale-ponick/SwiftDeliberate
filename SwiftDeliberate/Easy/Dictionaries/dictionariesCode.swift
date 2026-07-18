@@ -49,7 +49,7 @@ struct DictionariesCode {
         let scores = ["Ann": 85, "Joe": 92, "Jane": 78]
         let danny = ["Danny": 88]
         func getAverage(in scores: [String: Int]) -> Double {
-            var newScores = scores.merging(danny, uniquingKeysWith: { current, new in new })
+            let newScores = scores.merging(danny, uniquingKeysWith: { current, new in new })
             let average = Double(newScores.values.reduce(0, +)) / Double(newScores.values.count)
             return average
         }
