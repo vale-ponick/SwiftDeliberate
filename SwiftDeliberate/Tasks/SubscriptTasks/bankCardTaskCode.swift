@@ -13,7 +13,7 @@ struct BankCardTaskCode {
         // MARK: - ☕️💳 КОММЕРЧЕСКИЙ КЕЙС: ЛЕНТА БАНКОВСКИХ КАРТ (USER CARDS)
         print("☕️💳 КОММЕРЧЕСКИЙ КЕЙС: ЛЕНТА БАНКОВСКИХ КАРТ - 'USER CARDS'.")
         
-        // 📝 Условие задачи: Создай struct BankDatabase. Внутри неё -> двумерный массив строк, где каждый внутренний массив — это кошелек конкретного клиента.
+        // 📝 Условие задачи: Создай struct BankDatabase. Внутри неё -> [[String]], где каждый внутренний массив —> кошелек конкретного клиента.
         
         // вар. 1 swift style
         
@@ -26,8 +26,8 @@ struct BankCardTaskCode {
             ]
             
             subscript( userIndex: Int, cardIndex: Int) -> String { // my КАСТОМНЫЙ САБСКРИПТ - т.н. 'Read-Only'
-                guard userCards.indices.contains(userIndex),  userIndex >= 0,
-                      userCards[userIndex].indices.contains(cardIndex) else { // indices.contains сам проверяет и >= 0, и верхнюю динамическую границу!
+                guard userCards.indices.contains(userIndex), userIndex >= 0,
+                      userCards[userIndex].indices.contains(cardIndex) else { // indices.contains auto проверяет и >= 0, и верхнюю динамическую границу!
                     return "💳 Card not found"
                 }
                 return userCards[userIndex][cardIndex]
@@ -70,10 +70,10 @@ struct BankCardTaskCode {
                         }
                         
                         // ШАГ 2: Используем ПЕРЕМЕННУЮ-ХРАНИЛИЩЕ.
-                        // Мы один раз достаем кошелек и сохраняем его, так как будем работать с ним несколько раз.
+                        // Мы один раз достаем кошелек и сохраняем его, т.к. будем работать с ним несколько раз.
                         let currentUserWallet = userCards[mappedUserIndex]
                         
-                        // ШАГ 3: Новое бизнес-условие. Проверяем, не пуст ли кошелек
+                        // ШАГ 3: Новое бизнес-условие. Проверяем, не пуст ли кошелек?
                         guard !currentUserWallet.isEmpty else {
                             return "💳 Client not open card"
                         }
