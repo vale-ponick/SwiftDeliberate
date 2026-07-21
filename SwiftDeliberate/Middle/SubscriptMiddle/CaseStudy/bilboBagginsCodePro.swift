@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum ChestError: Error, LocalizedError {
+// 🛡️🔥 Not today, Index out of range.
+// Guard. Throw. Catch.
+// Middle.
+
+enum ChestErrorPro: Error, LocalizedError {
     case outOfBounds(index: Int)
     
     var errorDescription: String? {
@@ -19,18 +23,18 @@ enum ChestError: Error, LocalizedError {
 }
 
 /// Универсальный, безопасный сундук уровня Pro.
-struct ProBilboChest<T>: Sequence {
+struct BilboChestPro<T>: Sequence {
     private var items: [T]
     
     init(items: [T]) {
         self.items = items
     }
     
-    // 1. Сабскрипт строго Read-Only (только get) — теперь Xcode доволен!
+    // 1. Сабскрипт строго Read-Only (только get)
     subscript(index: Int) -> T {
         get throws {
             guard items.indices.contains(index) else {
-                throw ChestError.outOfBounds(index: index)
+                throw ChestErrorPro.outOfBounds(index: index)  // ← исправлено
             }
             return items[index]
         }
@@ -39,7 +43,7 @@ struct ProBilboChest<T>: Sequence {
     // 2. Безопасная функция перезаписи с поддержкой ошибок (throws)
     mutating func updateItem(at index: Int, with newValue: T) throws {
         guard items.indices.contains(index) else {
-            throw ChestError.outOfBounds(index: index)
+            throw ChestErrorPro.outOfBounds(index: index)  // ← исправлено
         }
         items[index] = newValue
     }
@@ -50,11 +54,11 @@ struct ProBilboChest<T>: Sequence {
 }
 
 // MARK: - Исполняемая структура для запуска теста
-struct ProBilboChestCode {
+struct BilboChestCodePro {
     static func run() {
         print("=== Запуск Pro-версии сундука Бильбо Бэггинса ===")
         
-        var chest = ProBilboChest(items: [
+        var chest = BilboChestPro(items: [  // ← исправлено
             "💎 Arkenstone",
             "🪙 Gold of Erebor",
             "🗡️ Sting",
