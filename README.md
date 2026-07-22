@@ -7,9 +7,9 @@
     - Visual cheat sheet
     - Personal reflections
      
- 🚕💨 CODE PRO
+ 🏔️ CODE PRO
  
- 🏔️🔥 PRINCIPLES:
+ 🔥 PRINCIPLES:
  1. Always validate input (guard)
  2. Always encapsulate data (private)
  3. Always report errors (throw)
