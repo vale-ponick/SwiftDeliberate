@@ -155,10 +155,10 @@ func exampleFirstWhere() {
  🚕💨 CODE PRO
  
  🏔️🔥 PRINCIPLES:
- 1. Always use weak self in closures
- 2. Always think about capture list
- 3. Always use trailing closure
- 4. Always prefer $0 over long names
+ 1. Use weak self in closures
+ 2. Think about capture list
+ 3. Use trailing closure
+ 4. Prefer $0 over long names
  5. Strive to be Middle
  
  📈 STATUS: v1.0 | Junior+ | Swift 5.9+
