@@ -36,308 +36,271 @@ import Foundation
          // установить значение (опционально)
      }
  }
- ```
- */
+📚 ВСЕ ВАРИАНТЫ ПРИМЕРОВ
+*/
 
-// MARK: - 📚 ВСЕ ВАРИАНТЫ ПРИМЕРОВ
-
-/**
- ### 1️⃣ Массив (встроенный сабскрипт)
- Если индекс вне диапазона -> КРАШ!
- */
 // MARK: - 🏛️ ОБЪЯВЛЕНИЕ КАСТОМНЫХ ТИПОВ ДЛЯ ШПАРГАЛКИ
 
 /// 4️⃣ Свой сабскрипт для класса/структуры
 struct TimesTable {
-    let multiplier: Int
-    
-    subscript(index: Int) -> Int {
-        return multiplier * index
-    }
+let multiplier: Int
+subscript(index: Int) -> Int { multiplier * index }
 }
 
 /// 5️⃣ Сабскрипт с несколькими параметрами
 struct Matrix {
-    let rows: Int, cols: Int
-    var grid: [Double]
-    
-    subscript(row: Int, col: Int) -> Double {
-        get {
-            return grid[row * cols + col]
-        }
-        set {
-            grid[row * cols + col] = newValue
-        }
-    }
+let rows: Int, cols: Int
+var grid: [Double]
+subscript(row: Int, col: Int) -> Double {
+get { grid[(row * cols) + col] }
+set { grid[(row * cols) + col] = newValue }
+}
 }
 
 /// 6️⃣ Сабскрипт с разными типами параметров (Перегрузка)
 struct Language {
-    subscript(key: String) -> String {
-        return "Translation for \(key)"
-    }
-    
-    subscript(key: Int) -> String {
-        return "Number \(key) in words"
-    }
+subscript(key: String) -> String { "Translation for (key)" }
+subscript(code: Int) -> String { "Number (code) in words" }
 }
 
 /// 7️⃣ Сабскрипт с опциональным возвратом
 struct SafeArray {
-    let array = [1, 2, 3, 4, 5]
-    
-    subscript(index: Int) -> Int? {
-        guard index >= 0 && index < array.count else {
-            return nil
-        }
-        return array[index]
-    }
+let items = [1, 2, 3, 4, 5]
+subscript(index: Int) -> Int? { items.indices.contains(index) ? items[index] : nil }
 }
 
 /// 8️⃣ Сабскрипт для словаря с значением по умолчанию
 struct DefaultDict {
-    var dict = ["a": 1, "b": 2]
-    let defaultValue: Int = 0
-    
-    subscript(key: String) -> Int {
-        return dict[key] ?? defaultValue
-    }
+private var storage = ["a": 1, "b": 2]
+subscript(key: String) -> Int { storage[key] ?? 0 }
 }
 
 /// 9️⃣ Сабскрипт, который только читает (get-only)
 struct WeekDays {
-    let days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
-    
-    subscript(index: Int) -> String {
-        return days[index]
-    }
+private let days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+subscript(index: Int) -> String { days[index] }
 }
 
 /// 🔟 Сабскрипт с динамическим ключом (тип String)
 class Configuration {
-    var settings = ["theme": "dark", "font": "Arial"]
-    
-    subscript(key: String) -> String? {
-        get {
-            return settings[key]
-        }
-        set {
-            settings[key] = newValue
-        }
-    }
+private var settings = ["theme": "dark"]
+subscript(key: String) -> String? {
+get { settings[key] }
+set { settings[key] = newValue }
+}
 }
 
 /// 1️⃣1️⃣ Статический сабскрипт (Продвинутый уровень)
 enum GlobalConfig {
-    static var values = ["API_URL": "https://api.com"]
-    
-    static subscript(key: String) -> String? {
-        return values[key]
-    }
+private static let data = ["API_URL": "https://swift.com"]
+static subscript(key: String) -> String? { data[key] }
 }
 
 /// 1️⃣2️⃣ Сабскрипт с параметрами по умолчанию (Продвинутый уровень)
 struct Lookup {
-    subscript(key: String, upperCased: Bool = false) -> String {
-        return upperCased ? key.uppercased() : key
-    }
+subscript(query: String, uppercase: Bool = false) -> String {
+uppercase ? query.uppercased() : query
+}
 }
 
-/// 🏆 ТОП-СПОСОБ С СОБЕСЕДОВАНИЙ (Вариант через глобальное Расширение):
+/// 🔲 Многомерный сабскрипт с обязательными внешними именами аргументов
+struct Table {
+subscript(row row: Int, col col: Int) -> String {
+"Item at (row)x(col)"
+}
+}
+
+// 🏆 Безопасное расширение для Топ-Способа с собеседований
 extension Array {
-    subscript(safe index: Int) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
+subscript(safe index: Int) -> Element? {
+return indices.contains(index) ? self[index] : nil
+}
 }
 
-
-// MARK: - ⚙️ ИСПОЛНЯЕМЫЙ КОД (ЗАПУСК ПРИМЕРОВ И ОШИБОК)
+// MARK: - ⚙️ ИСПОЛНЯЕМЫЙ КОД (ЗАПУСК ПРИМЕРОВ)
 
 /// Главная функция, объединяющая все примеры.
-/// Она спасает от ошибки "Statements are not allowed at the top level".
 func runAllSubscriptExamples() {
-    
-    /**
-     ### 1️⃣ Массив (встроенный сабскрипт)
-     Если индекс вне диапазона -> КРАШ!
-     */
-    do {
-        let fruits = ["apple", "banana", "cherry"]
-        let second = fruits[1]  // "banana"
-        print(second)
-    }
 
-    /**
-     ### 2️⃣ Словарь (встроенный сабскрипт)
-     Возвращает опционал. Если ключа нет -> nil (без краша!)
-     */
-    do {
-        let capitals = ["France": "Paris", "Italy": "Rome"]
-        let capital = capitals["France"]  // "Paris" (опционал)
-        let missing = capitals["Spain"]   // nil (без краша!)
-        print(String(describing: capital), String(describing: missing))
-    }
-
-    /**
-     ### 3️⃣ Строка (встроенный сабскрипт)
-     Строка в Swift НЕ поддерживает text[0] напрямую! Но можно через специальный Index.
-     */
-    do {
-        let text = "Hello"
-        let index = text.index(text.startIndex, offsetBy: 1)
-        let char = text[index]  // "e"
-        print(char)
-    }
-
-    /**
-     ### 4️⃣ Свой сабскрипт для класса/структуры
-     */
-    do {
-        let table = TimesTable(multiplier: 3)
-        let result = table[5]  // 15
-        print(result)
-    }
-
-    /**
-     ### 5️⃣ Сабскрипт с несколькими параметрами
-     */
-    do {
-        var matrix = Matrix(rows: 2, cols: 2, grid: [1.0, 2.0, 3.0, 4.0])
-        let value = matrix[0, 1]  // 2.0
-        matrix[1, 1] = 99.0       // изменяем
-        print(value, matrix.grid)
-    }
-
-    /**
-     ### 6️⃣ Сабскрипт с разными типами параметров (Перегрузка)
-     */
-    do {
-        let lang = Language()
-        print(lang["hello"])  // "Translation for hello"
-        print(lang[42])       // "Number 42 in words"
-    }
-
-    /**
-     ### 7️⃣ Сабскрипт с опциональным возвратом
-     */
-    do {
-        let safe = SafeArray()
-        print(String(describing: safe[10]))  // nil (без краша!)
-    }
-
-    /**
-     ### 8️⃣ Сабскрипт для словаря с значением по умолчанию
-     */
-    do {
-        let custom = DefaultDict()
-        print(custom["a"])  // 1
-        print(custom["z"])  // 0 (не nil!)
-    }
-
-    /**
-     ### 9️⃣ Сабскрипт, который только читает (get-only)
-     */
-    do {
-        let week = WeekDays()
-        print(week[2])  // "Wed"
-        // week[2] = "Sun" // ❌ Ошибка компиляции! Только get
-    }
-
-    /**
-     ### 🔟 Сабскрипт с динамическим ключом (тип String)
-     */
-    do {
-        let config = Configuration()
-        print(String(describing: config["theme"]))   // "dark"
-        config["theme"] = "light"
-        print(String(describing: config["theme"]))   // "light"
-    }
-
-    /**
-     ### 1️⃣1️⃣ Статический сабскрипт (Продвинутый уровень)
-     */
-    do {
-        let url = GlobalConfig["API_URL"] // Вызов напрямую у Енума!
-        print(String(describing: url))
-    }
-
-    /**
-     ### 1️⃣2️⃣ Сабскрипт с параметрами по умолчанию (Продвинутый уровень)
-     */
-    do {
-        let search = Lookup()
-        print(search["apple"])       // "apple"
-        print(search["apple", true]) // "APPLE"
-    }
-
-
-    /**
-     ## ⚠️ ВАЖНЫЕ ПРАВИЛА
-     * **Сабскрипт может иметь любое количество параметров:** Хоть 0, хоть 10.
-     * **Параметры могут быть любых типов:** Int, String, Double, даже [String].
-     * **Сабскрипт может быть перегружен:** Можно сделать несколько вариантов с разными типами.
-     * **Сабскрипт может быть только get или get + set:** Если нет set — только чтение.
-     * **Входные параметры внутри скобок `[...]` не могут использовать `inout`:** Они всегда только для чтения.
-     */
-
-    // MARK: - 🚨 ЧАСТЫЕ ОШИБКИ НОВИЧКОВ
-
-    /**
-     ### ❌ ОШИБКА 1: Применить сабскрипт к строке как к массиву
-     `let char = str[0]` — НЕ РАБОТАЕТ!
-     */
-    do {
-        let str = "Hello"
-        let index = str.index(str.startIndex, offsetBy: 0)
-        let char = str[index]  // "H"
-        print(char)
-    }
-
-    /**
-     ### ❌ ОШИБКА 2: Force unwrap сабскрипта словаря без проверки
-     `let value = dict["b"]!` — КРАШ, если ключа нет!
-     */
-    do {
-        let dict = ["a": 1]
-        if let value = dict["b"] {
-            print(value)
-        } else {
-            print("Not found")
-        }
-    }
-
-    /**
-     ### ❌ ОШИБКА 3: Выход за границы массива
-     `let x = nums[5]` — КРАШ!
-     
-     **✅ ПРАВИЛЬНО (Вариант через проверку indices):**
-     */
-    do {
-        let nums = [1, 2, 3]
-        if nums.indices.contains(5) {
-            let _ = nums[5]
-        }
-    }
-
-    /**
-     **🏆 ТОП-СПОСОБ С СОБЕСЕДОВАНИЙ (Проверка нашего расширения в деле):**
-     */
-    do {
-        let nums = [1, 2, 3]
-        let x = nums[safe: 5]  // Вернет nil, никакого краша!
-        print(String(describing: x))
-    }
-
-    /**
-     ## 🧠 ИТОГ: ПРОСТОЕ ОПРЕДЕЛЕНИЕ
-     Сабскрипт — это способ получить доступ к элемент внутри коллекции (или своего типа) через квадратные скобки `[]`.
-     * В словаре — безопасно (возвращает опционал).
-     * В массиве — опасно (может упасть).
-     * В своих типах — можно настроить как угодно.
-     
-     ## 🏆 THE GOLDEN RULE
-     Сабскрипт `[]` — это инструмент доступа, но помни: словарь прощает отсутствие ключа (возвращает nil), а массив — нет (упадет). Проверяй границы и опционалы!
-     */
+// 1️⃣ Массив
+do {
+let fruits = ["apple", "banana", "cherry"]
+print(fruits[1]) // "banana"
 }
+
+// 2️⃣ Словарь
+do {
+let capitals = ["France": "Paris", "Italy": "Rome"]
+print(String(describing: capitals["France"])) // Optional("Paris")
+print(String(describing: capitals["Spain"])) // nil
+}
+
+// 3️⃣ Строка
+do {
+let text = "Hello"
+let index = text.index(text.startIndex, offsetBy: 1)
+print(text[index]) // "e"
+}
+
+// 4️⃣ Свой сабскрипт
+do {
+let table = TimesTable(multiplier: 3)
+print(table[5]) // 15
+}
+
+// 5️⃣ Сабскрипт с несколькими параметрами
+do {
+var matrix = Matrix(rows: 2, cols: 2, grid: [1.0, 2.0, 3.0, 4.0])
+print(matrix[0, 1]) // 2.0
+matrix[1, 1] = 99.0
+print(matrix.grid) // [1.0, 2.0, 3.0, 99.0]
+}
+
+// 6️⃣ Перегрузка сабскрипта
+do {
+let lang = Language()
+print(lang["hello"]) // "Translation for hello"
+print(lang[42]) // "Number 42 in words"
+}
+
+// 7️⃣ Опциональный возврат
+do {
+let safe = SafeArray()
+print(String(describing: safe[10])) // nil
+}
+
+// 8️⃣ Дефолтное значение
+do {
+let custom = DefaultDict()
+print(custom["a"]) // 1
+print(custom["z"]) // 0
+}
+
+// 9️⃣ Get-only
+do {
+let week = WeekDays()
+print(week[2]) // "Wed"
+}
+
+// 🔟 Динамический ключ
+do {
+let config = Configuration()
+print(String(describing: config["theme"])) // "dark"
+config["theme"] = "light"
+print(String(describing: config["theme"])) // "light"
+}
+
+// 1️⃣1️⃣ Статический сабскрипт
+do {
+print(String(describing: GlobalConfig["API_URL"])) // "https://swift.com"
+}
+
+// 1️⃣2️⃣ Параметры по умолчанию
+do {
+let search = Lookup()
+print(search["apple"]) // "apple"
+print(search["apple", true]) // "APPLE"
+}
+
+// 1️⃣3️⃣ Внешние имена (Table)
+do {
+let table = Table()
+print(table[row: 1, col: 2]) // "Item at 1x2"
+}
+
+// 🏆 Безопасный сабскрипт
+do {
+let nums = [1, 2, 3]
+print(String(describing: nums[safe: 5])) // nil
+}
+}
+
+// MARK: - 🚨 ЧАСТЫЕ ОШИБКИ
+
+/*
+
+❌ ОШИБКА 1: Строка как массив
+let char = str[0] — НЕ РАБОТАЕТ!
+
+❌ ОШИБКА 2: Force unwrap словаря
+let value = dict["b"]! — КРАШ!
+
+❌ ОШИБКА 3: Выход за границы массива
+let x = nums[5] — КРАШ!
+*/
+
+// MARK: - ⚠️ ВАЖНЫЕ ПРАВИЛА
+
+/*
+
+Сабскрипт может иметь любое количество параметров
+
+Параметры могут быть любых типов
+
+Сабскрипт можно перегружать
+
+Может быть только get или get + set
+
+Входные параметры не могут использовать inout
+*/
+
+// MARK: - 🧠 ИТОГ
+
+/*
+Сабскрипт — это доступ к элементам через квадратные скобки [].
+
+📊 Сравнение:
+
+Массив: array[0] → значение (краш при ошибке)
+
+Словарь: dict["key"] → опционал (nil при ошибке)
+
+Свои типы: настраивается как угодно
+
+🏆 GOLDEN RULE:
+Словарь прощает отсутствие ключа (nil), массив — нет (краш).
+Всегда проверяй границы!
+*/
+
+// MARK: - 📊 ШПАРГАЛКА ПО СЛОЖНОСТИ
+
+/*
+Доступ по сабскрипту: O(1)
+Кастомный сабскрипт с contains: O(1)
+*/
+
+// MARK: - 📈 РЕФЛЕКСИЯ
+
+/*
+🛠 Что далось легко:
+Синтаксис сокращенного чтения без блоков get/set.
+
+🌀 С чем была путаница:
+Откуда берется newValue и как сделать внешние метки обязательными.
+
+💡 Озарение:
+Квадратные скобки у массивов — это не магия Xcode,
+а такой же сабскрипт, написанный инженерами Apple!
+*/
+
+// MARK: - 🛡️🔥 ДЕВИЗ САБСКРИПТОВ
+
+/*
+"Fast access. Safe index.
+Clean brackets.
+Middle."
+
+🚕💨 CODE PRO
+
+🏔️🔥 PRINCIPLES:
+
+ 1. Use safe subscript (guard + contains)
+ 2. Remember: dictionary returns optional
+ 3. Check array bounds
+ 4. Use external labels for clarity
+ 5. Strive to be Middle
+
+📈 STATUS: v1.0 | Junior+ | Swift 5.9+
+*/
 
 
