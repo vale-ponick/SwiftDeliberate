@@ -9,11 +9,11 @@
      
  🏔️ CODE PRO
  
- 🔥 PRINCIPLES:
- 1. Always validate input (guard)
- 2. Always encapsulate data (private)
- 3. Always report errors (throw)
- 4. Always handle errors (catch)
- 5. Always be Middle
- 
- 📈 STATUS: v2.0 | Middle | Swift 5.9+
+🏔️🔥 PRINCIPLES:
+1. Use weak self in closures
+2. Think about capture list
+3. Use trailing closure
+4. Prefer $0 over long names
+5. Strive to be Middle"
+
+📈 STATUS: v1.0 | Junior+ | Swift 5.9+
