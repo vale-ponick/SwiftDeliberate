@@ -58,6 +58,34 @@ func log(_ message: @autoclosure () -> String) {
     print(message())
 }
 
+// 🔁 5. forEach — перебор
+func exampleForEach() {
+    array.forEach { print($0) }
+}
+
+// 🔍 6. first(where:) — поиск
+func exampleFirstWhere() {
+    let numbers = [1, 2, 3, 4, 5]
+    let firstEven = numbers.first(where: { $0 % 2 == 0 })
+    print(firstEven ?? "Not found")  // 2
+}
+
+/*
+ 🔄 Исторический контекст: compactMap vs flatMap
+ 
+ До Swift 4.1 (2018):
+ let clean = array.flatMap { $0 }  // убирал nil И склеивал массивы
+ 
+ После Swift 4.1:
+ let clean = array.compactMap { $0 }  // только убирает nil
+ let flattened = array.flatMap { $0 } // только склеивает [[Int]] → [Int]
+ 
+ 💡 Зачем разделили?
+ Чтобы не путать две разные операции:
+ - compactMap: фильтрация nil
+ - flatMap: склеивание вложенности
+ */
+
 /*
  🧠 GOLDEN RULE для Closures:
  - Всё, что ДО слова `in` — это параметры, имя которым ты даешь САМА.
@@ -94,6 +122,12 @@ func log(_ message: @autoclosure () -> String) {
  7️⃣ Trailing closure:
     array.map { $0 * 2 }  // скобки опущены
  
+ 8️⃣ forEach:
+    array.forEach { print($0) }
+ 
+ 9️⃣ first(where:):
+    let firstEven = numbers.first(where: { $0 % 2 == 0 })
+ 
  💻 Примеры с реальными API:
  
  let numbers = [1, 2, 3, 4, 5]
@@ -106,6 +140,8 @@ func log(_ message: @autoclosure () -> String) {
  if let firstEven = numbers.first(where: { $0 % 2 == 0 }) {
      print(firstEven)
  }
+ 
+ numbers.forEach { print($0) }
  
  📈 РЕФЛЕКСИЯ по Замыканиям:
  💡 Озарение (Aha! moment): Конструкции типа `{ id in ... }` в SwiftUI — это не магия, а просто имя переменной `id`, которое я сама дала текущему элементу массива, а Swift автоматически подставляет его при переборе!
@@ -123,7 +159,7 @@ func log(_ message: @autoclosure () -> String) {
  2. Always think about capture list
  3. Always use trailing closure
  4. Always prefer $0 over long names
- 5. Always be Middle
+ 5. Strive to be Middle
  
- 📈 STATUS: v1.0 | Juniour+ | Swift 5.9+
+ 📈 STATUS: v1.0 | Junior+ | Swift 5.9+
  */
