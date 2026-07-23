@@ -22,23 +22,9 @@
 		58791BB62FFA48890027ED06 /* SwiftDeliberate */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftDeliberate; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		588457E2300DCB6D00790503 /* Exceptions for "SwiftDeliberate" folder in "Compile Sources" phase from "SwiftDeliberate" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 58791BB22FFA48890027ED06 /* Sources */;
-			membershipExceptions = (
-				Tasks/MappingTasks/bilboBagginsTreasure.md,
-				Tasks/MappingTasks/mappingTasksReflect.md,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		58791BB82FFA48890027ED06 /* SwiftDeliberate */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				588457E2300DCB6D00790503 /* Exceptions for "SwiftDeliberate" folder in "Compile Sources" phase from "SwiftDeliberate" target */,
-			);
 			path = SwiftDeliberate;
 			sourceTree = "<group>";
 		};
