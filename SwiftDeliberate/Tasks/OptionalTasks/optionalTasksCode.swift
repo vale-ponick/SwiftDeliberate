@@ -60,16 +60,20 @@ struct OptionalTasksCode {
         let summa = stringNumbers.reduce(0) {$0 + (Int($1) ?? 0) }
         print(summa) // 921
         
-        // MAK: - 4️⃣. 'Цепочка опционалов': hard
-        print("4️⃣. Дан словарь: Извлеки возраст как Int. Используй опциональную цепочку. Если возраст не найден → выведи 'Age not found'. Если возраст не число → выведи 'Invalid age'. Ожидаемый вывод: Age: 25")
+        // MAK: - 4️⃣. 'Парсинг профиля из вложенного JSON': hard
+        print("4️⃣. Парсинг профиля из вложенного JSON")
+              
+        let networkResponse: [String: Any] = ["user": ["profile": ["meta": ["age": 25]]]]
 
-     
-        let userData: [String: Any] = [
-            "user": [
-                "name": "Vale",
-                "age": "25"
-            ]
-        ]
+        func parseUserAge(from response: [String: Any]) -> Int {
+            // 🛠 ТВОЙ КОД ЗДЕСЬ (Никаких подсказок от дипсиков!)
+            // Помни про опциональную цепочку и приведение типов через as? [String: Any]
+            return 0
+              }
+
+              // Твоя будущая проверка через assert:
+              // let age = parseUserAge(from: networkResponse)
+              // assert(age == 25, "❌ Ошибка: возраст извлечен неверно!")
         
         
     }
