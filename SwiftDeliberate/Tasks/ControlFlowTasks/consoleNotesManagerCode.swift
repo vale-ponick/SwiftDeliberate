@@ -7,40 +7,6 @@
 
 import Foundation
 
-/**
- 📌 СТАНДАРТНЫЕ ЭМОДЗИ ДЛЯ ПРОЕКТА (Шпаргалка)
-
- 🔹 Навигация / Действия:
-    ▶️ Запуск
-    📝 Меню / Заметки
-    🧠 Логика / Памятка
-    ⚙️ Настройки
-
- 🔹 Цифры (для меню):
-    1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟 0️⃣
-
- 🔹 Команды (для switch/case):
-    📋 Показать       🔥 Внимание    💡 Подсказка / Идея
-    ✏️ Редактировать  🗑️ Удалить     📂 Список
-    🔄 Обновить       ✅ Успех       ❌ Ошибка
-    ⚠️ Предупреждение ℹ️ Информация  🚪 Выход
-
- 🔹 Данные / Состояния:
-    📭 Пусто         📦 Данные       🔄 Загрузка
-    💾 Сохранено     🔍 Поиск        📊 Статистика
-
-    🌟 Бонус         🎯 Цель         🖖 Спок
- 
- //  🔹 Git Коммиты (для фиксации изменений в коде):
- //     ✨ Новая фича / Функция
- //     🐛 Исправление бага / Ошибки
- //     📝 Документация / Комментарии / Шпаргалки
- //     🎨 Стиль / Форматирование / Эмодзи в UI
- //     ⚡️ Повышение производительности / Оптимизация
- //     🔥 Удаление кода или файлов
- //     🚀 Релиз / Готовая версия
-*/
-
 struct ConsoleNotesManagerCode {
     
     struct Note {
@@ -48,22 +14,17 @@ struct ConsoleNotesManagerCode {
         var title: String
         var text: String
     }
+    // массив изменяемый + статический -> доступен из ЛЮБОЙ точки структуры
+    static var notes: [Note] = [
+        Note(id: 1, title: "Idea on Swift", text: "Create file with emoji"),
+        Note(id: 2, title: "my errors", text: "Once more, Vale.ponick!"),
+        Note(id: 3, title: "Slogan", text: "Don't worry, be happy!")
+    ]
     
     static func run() {
         print("▶️ Запуск: ConsoleNotesManagerCode")
-                
-        // MARK: - 📝 Console Notes Manager
         print("📝 Console Notes Manager")
         
-        print("\n\(Emoji.Commands.list) LIST NOTES: ")
-        let notes: [Note] = [
-            Note(id: 1, title: "Idea on Swift", text: "Create file with emoji"),
-            Note(id: 2, title: "my errors", text: "Once more, Vale.ponick!"),
-            Note(id: 3, title: "Slogan", text: "Don't worry, be happy!")
-        ]
-        for note in notes {
-            print("\(note.id). \(Emoji.Commands.show) \(note.title) \(note.text)")
-        }
         var isRunning = true
         
         while isRunning {
@@ -83,6 +44,24 @@ struct ConsoleNotesManagerCode {
                         for note in notes {
                             print("\(note.id). \(Emoji.Commands.show) \(note.title): \(note.text)")
                         }
+                    }
+                case "2":
+                    print("\n\(Emoji.User.new) Enter title: ", terminator: "")
+                    
+                    if let titleInput = readLine(), !titleInput.isEmpty {
+                        
+                        print("\(Emoji.Navigation.menu) Enter text: ", terminator: "")
+                        
+                        if let textInput = readLine() {
+                            let newId = ConsoleNotesManagerCode.notes.count + 1
+                            let newNote = Note(id: newId, title: titleInput, text: textInput)
+                            ConsoleNotesManagerCode.notes.append(newNote)
+                            
+                            print("\(Emoji.Commands.success) \(Emoji.DataState.saved) Note added!")
+                        }
+                        
+                    } else {
+                        print("\(Emoji.Commands.error) Error: Title can't be empty!")
                     }
                 case "0":
                     print("\n\(Emoji.Commands.exit) Bye!App is complete")

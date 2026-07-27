@@ -89,4 +89,12 @@ enum Emoji {
         static let target = "🎯"
         static let spock = "🖖"
     }
+    enum User {
+        static let profile = "👤"
+        static let `new` = "🆕" // кавычки `` нужны, потому что new — это служебное слово в Swift
+        static let key = "🔑"
+        static let victory = "🏆"
+        static let congrats = "🎉"
+        static let success = "💪"
+    }
 }
