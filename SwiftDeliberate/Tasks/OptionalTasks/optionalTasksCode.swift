@@ -63,7 +63,7 @@ struct OptionalTasksCode {
         // MAK: - 4️⃣. 'Парсинг профиля из вложенного JSON': hard
         print("4️⃣. Парсинг профиля из вложенного JSON")
               
-        let networkResponse: [String: Any] = ["user": ["profile": ["meta": ["age": 25]]]]
+        let _: [String: Any] = ["user": ["profile": ["meta": ["age": 25]]]]
 
         func parseUserAge(from response: [String: Any]) -> Int {
             // 🛠 ТВОЙ КОД ЗДЕСЬ (Никаких подсказок от дипсиков!)

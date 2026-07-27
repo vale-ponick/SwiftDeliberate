@@ -19,6 +19,16 @@ struct ControlFlow {
             Итерация номер 2
             Итерация номер 3 */
         }
+        
+        var count = 0
+
+        repeat {
+            count += 1
+            if count == 2 {
+                continue
+            }
+            print(count, terminator: " ")
+        } while count < 3
     }
 }
 
