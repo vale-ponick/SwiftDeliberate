@@ -11,9 +11,9 @@ struct StructAndClassSnippets {
     static func run() {
         print("▶️ Запуск: Struct And Class Snippets\n")
         
-        // 1. VALUE TYPE (Структуры) vs REFERENCE TYPE (Классы)
+        // 1. VALUE TYPE (Structs) vs REFERENCE TYPE (Classes)
         
-        // А. Структура полностью КОПИРУЕТСЯ. Оригинал всегда в безопасности.
+        // А. Struct полностью КОПИРУЕТСЯ. Оригинал всегда в безопасности.
         do {
             struct Spaceship {
                 var name: String
@@ -25,7 +25,7 @@ struct StructAndClassSnippets {
             
             discovery.fuel = 50
             print("1. Структура (Оригинал защищен. Ожидаем 100): \(enterprise.fuel)")
-        } // 👈 Блок 1 закрыт
+        }
         
         // 2. REFERENCE TYPE (Классы копируют ссылки)
         
@@ -40,7 +40,7 @@ struct StructAndClassSnippets {
             
             secondCommander.name = "Spock" // Меняем мебель внутри дома
             print("2. Класс (Оригинал изменился по ссылке. Ожидаем Spock): \(firstCommander.name)")
-        } // 👈 Блок 2 закрыт
+        }
         
         // 💡 Инсайт: 'let' для класса запрещает менять адрес дома (secondCommander = Commander(...)),
         // но изменять var-свойства внутри этого дома компилятор полностью разрешает!
@@ -66,7 +66,7 @@ struct StructAndClassSnippets {
             
             // let fixedVoyager = CargoShip(name: "Static", tonnage: 100)
             // fixedVoyager.loadCargo(weight: 50) // 🛑 Error! let-struct нельзя мутировать.
-        } // 👈 Блок 3 закрыт
+        }
         
         // 4. CLASS REFERENCE (Общий объект в памяти)
         // ==========================================
@@ -89,7 +89,7 @@ struct StructAndClassSnippets {
             firstProbe.serialNumber = 8888
             
             print("4. Итог по ссылкам класса (ожидаем 8888 и Jupiter): \(secondProbe.serialNumber) - \(secondProbe.destination)")
-        } // 👈 Блок 4 закрыт
+        } 
     }
 }
 
