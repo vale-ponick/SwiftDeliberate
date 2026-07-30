@@ -86,7 +86,51 @@ struct VariablePractice {
 
     print("Название:", travel.title) // Название: В Белокуриху
     print("Счетчик точек в трекере:", travel.tracker.pointsCount) // Счетчик точек в трекере: 10
+     
+        // MARK: - Задача 1: «Строгий инспектор типов» (Специфика let, var и Type Inference)
         
+        let baseSalary = 50000
+        let bonus = 1500.25
+        let totalCompensation = Double(baseSalary) + bonus
+        print(totalCompensation) // 51500.25
+        
+        // MARK: - Задача 2: «Аукцион раритетов» (Работа с Optionals, Unwrapping и Nil Coalescing)
+        
+       var highestBid: Int? = nil
+        let initialPrice = 100
+        
+        if let bid = highestBid {
+            print("Current max bid: \(bid)")
+        } else {
+            print("No bids yet. Initial price: 100")
+        }
+        highestBid = 2500
+        print(highestBid ?? initialPrice) // 2500
+       
+        // MARK: - Задача 3: «Ловушка на собеседовании» (Mutating, Value vs Reference Types)
+        
+        struct UserStruct {
+            var name: String
+        }
+        class UserClass {
+            var name: String
+            
+            init(name: String) {
+                self.name = name
+            }
+        }
+        
+        var structUser = UserStruct(name: "Anna - king of France")
+        print(structUser.name) // Anna - king of France
+        structUser.name = "George III - king of Great Britain"
+        
+        print(structUser.name) // George III - king of Great Britain
+        
+        let classUser = UserClass(name: "James III - king of GB")
+        print(classUser.name) // James III - king of GB
+        
+        classUser.name = "Elizabeth II" //
+        print(classUser.name) // Elisabate II
         /**
          Название поездки (travel.title) — это свойство самой структуры. Оно иммутабельно (let), и его изменить нельзя.
          

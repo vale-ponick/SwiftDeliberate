@@ -75,6 +75,10 @@ enum Emoji {
         static let warning = "⚠️"
         static let info = "ℹ️"
         static let exit = "🚪"
+        static let dangerous = "🚨"
+        static let stop = "🛑"
+        static let crash = "🧨"
+        static let workInProgress = "🚧"
     }
     enum DataState {
         static let empty = "📭"
