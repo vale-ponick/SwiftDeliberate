@@ -212,18 +212,126 @@ struct StructAndClassPractics {
 
         print("Всего миссий после удаления: \(captainLog.totalMissions)")
         
+        // MARK: - 7️⃣: 'Инвентарь космолёта'
+        print("\n7️⃣: Название модуля: 'Инвентарь космолёта. Вселенная: Star Trek'.\nУровень: Junior.\nТип задачи: mutating и guard let.")
+        
+        print("📋 Создать struct SpaceStation с массивом строк inventory.Написать mutating func deployComponent(_ name: String) -> String?.Внутри функции использовать guard let для поиска индекса элемента через firstIndex(of:). Если элемент есть — удалить его из массива и вернуть строку 'Компонент [имя] отправлен на корабль'. Если нет — вернуть nil.")
+        
+        struct SpaceStation {
+            
+            var inventory: [String] = ["warp nacelles", "deflector dish", "impulse engines"]
+            
+            mutating func deployComponent(_ name: String) -> String? {
+                guard let removeIndex = inventory.firstIndex(of: name) else {
+                    return nil
+                }
+                
+                inventory.remove(at: removeIndex)
+                return "Component '\(name)' sent to spase Station"
+            }
+        }
+        
+        // tests
+        // пробуем забрать существующий компонент
+        var station = SpaceStation()
+       
+        if let res = station.deployComponent("warp nacelles") {
+            print(res)
+        } else {
+            print("Not found")
+        }
+        
+        // проверяем: комполнент дейтвительно удален? т.е. пробуем взять его еще раз
+        if let res = station.deployComponent("warp nacelles") {
+            print(res) // Component 'warp nacelles' sent to spase Station
+        } else {
+            print("Not found(successfully delete from inventory).") // Not found(successfully delete from inventory).
+        }
+        
+        // MARK: - 7️⃣. 'Инвентарь космолёта'
+        print("\n7️⃣. 🛰 Поиск по точному значению (of:) есть массив зарегистрированных частот враждебных кораблей:let scannerFrequencies: [Double] = [102.4, 405.1, 88.9, 405.1]Твоя цель: Найти индекс частоты 88.9.Напиши: Только одну строку с вызовом firstIndex. Какой тип данных вернет этот метод (Int или Int?)?")
+        
+        let scannerFrequencies: [Double] = [102.4, 405.1, 88.9, 405.1]
+        
+        let res = scannerFrequencies.firstIndex(of: 88.9)
+        print(res ?? 0) // 2
+        
+        // MARK: - 8️⃣. '🛰Поиск по условию (where:)'
+        print("\n8️⃣. 🛰 Найти индекс офицера, у которого rank == 'Captain'.Подсказка: Массив состоит из структур, значит, нужно использовать замыкание where: { $0... } и заглянуть внутрь свойства.")
+              
+        struct Officer {
+            let name: String
+            let rank: String // "Captain", "Commander", "Lieutenant"
+        }
+        let bridgeCrew = [
+            Officer(name: "Spock", rank: "Commander"),
+            Officer(name: "Kirk", rank: "Captain"),
+            Officer(name: "Uhura", rank: "Lieutenant")
+        ]
+        func found(_ rank: String) -> Int? {
+            guard let index = bridgeCrew.firstIndex(where: { $0.rank == rank} ) else {
+                return nil
+            }
+            
+            return index
+        }
+        if let result = found("Captain") {
+            print("Index officer - \(result)") // Index officer - 1
+        } else {
+            print("Not found")
+        }
+       
+        // MARK: - 9️⃣. '🏴‍☠️ Сканер вражеской эскадры': of: или where:?
+        print("\n9️⃣. На корабль «Энтерпрайз» совершено нападение. Бортовой компьютер отсканировал флот противника и занес данные в систему. У тебя есть два списка:Список кораблей + Черный список опасных секторов.")
         /**
-         6️⃣: Название модуля: 'БОРТЖУРНАЛ ЗВЁЗДНОГО ФЛОТА. Вселенная: Star Trek'.
-         Уровень: Junior+.
-         Тип задачи: Структуры, вычисляемые свойства, опционалы, работа с датой и безопасное извлечение.
-         📋 Ты — капитан корабля «Энтерпрайз». Твой бортовой журнал (Captain’s Log) должен хранить записи о миссиях.
-
-         🧪 ТЕСТ: Бортжурнал Звёздного флота
-         Всего миссий: 3
-         Опасных миссий: 2
-         Последняя миссия: Бой с ромуланами
-         Delete: Исследование туманности
-         Всего миссий после удаления: 2
+         🔥 Твоя цель — написать две строки кода:Строка 1 (Поиск корабля):Тактическому офицеру нужно срочно навести торпеды на корабль, у которого щиты упали ниже 20% (то есть shieldPower < 20), чтобы уничтожить его первым.
+         Напиши поиск индекса этого корабля в массиве activeEnemies.
+         
+         Строка 2 (Проверка сектора):Штурман проверяет, вошли ли мы в "Neutral Zone" (Нейтральную зону). Ему нужно найти индекс этой строки в массиве dangerousSectors.
+         Напиши поиск индекса строки "Neutral Zone" в массиве dangerousSectors.
          */
+              
+              
+     struct EnemyShip {
+            let designation: String // Маркировка: "Bird of Prey", "Warbird", "Scout"
+            let shieldPower: Int    // Прочность щитов в %
+        }
+
+        let activeEnemies = [ // Список кораблей
+            EnemyShip(designation: "Bird of Prey", shieldPower: 45),
+            EnemyShip(designation: "Warbird", shieldPower: 80),
+            EnemyShip(designation: "Scout", shieldPower: 12)
+        ]
+              
+       let dangerousSectors: [String] = ["Sector 001", "Neutral Zone", "Klingon Space"] // Черный список опасных секторов
+
+        func get(_ sector: String) -> Int? {
+            guard let index = dangerousSectors.firstIndex(of: sector) else {
+                return nil
+            }
+            return index
+        }
+        
+        func aimAtTargets(_ shieldPower: Int) -> Int? {
+            guard let indexSP = activeEnemies.firstIndex(where: { $0.shieldPower < shieldPower }) else {
+                return nil
+            }
+            
+            return indexSP
+        }
+        
+        // tests
+        if let index = get("Neutral Zone") {
+            print("Index Neutral Zone: \(index)") // Index Neutral Zone: 1
+        } else {
+            print("Dangerous Zone!")
+        }
+        
+        if let indexSP = aimAtTargets(20) {
+            print("Index of ship with shieldPower < 20: \(indexSP)") // Index of ship with shieldPower < 20: 2
+        } else {
+            print("Not found")
+        }
+        
     }
 }
